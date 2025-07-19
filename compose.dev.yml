@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  nuxt:
+    build:
+      context: ./nuxt-app
+      dockerfile: ./docker/development/Dockerfile
+    image: nuxt-app:latest
+    container_name: nuxt-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./nuxt-app:/app
+      - /app/node_modules
+      - /app/.nuxt
+    networks:
+      - nuxt-network
+
+networks:
+  nuxt-network:
+    driver: bridge
+
+volumes:
+  nuxt-app:
